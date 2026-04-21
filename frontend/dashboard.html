@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cabinet Médical — Dashboard</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: #1a2332;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.sidebar-logo {
+  padding: 1.5rem;
+  border-bottom: 1px solid #2d3a4f;
+  color: white;
+}
+
+/* NAV */
+.nav-link {
+  color: #8899aa;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  gap: 10px;
+}
+
+.nav-link:hover, .nav-link.active {
+  background: #253447;
+  color: white;
+}
+
+/* MAIN */
+.main-content {
+  margin-left: 240px;
+  padding: 2rem;
+}
+
+/* CARDS */
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #1a6fc4;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+  <div class="sidebar-logo">
+    <h6>🏥 Cabinet Médical</h6>
+    <small id="user-role">Admin</small>
+  </div>
+
+  <a class="nav-link active" href="dashboard.html"><i class="bi bi-grid"></i> Dashboard</a>
+  <a class="nav-link" href="patients.html"><i class="bi bi-people"></i> Patients</a>
+  <a class="nav-link" href="#"><i class="bi bi-calendar"></i> Consultations</a>
+  <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Médecins</a>
+
+  <div class="mt-auto p-3">
+    <button class="btn btn-danger w-100" onclick="logout()">
+      <i class="bi bi-box-arrow-left"></i> Déconnexion
+    </button>
+  </div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+  <!-- TOP -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h4>Tableau de bord</h4>
+      <small id="date"></small>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <div class="avatar" id="avatar">AD</div>
+      <strong id="username">Admin</strong>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="row g-3">
+
+    <div class="col-md-3">
+      <div class="stat-card">
+        <h6>Patients</h6>
+        <h3 id="patients">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="stat-card">
+        <h6>Consultations</h6>
+        <h3 id="consultations">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="stat-card">
+        <h6>Médecins</h6>
+        <h3 id="medecins">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="stat-card">
+        <h6>Paiements</h6>
+        <h3 id="paiements">0 DH</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABLES -->
+  <div class="row mt-4">
+
+    <div class="col-md-7">
+      <div class="stat-card">
+        <h5>Consultations aujourd'hui</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Heure</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody id="today-consultations">
+            <tr><td colspan="3">Chargement...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="stat-card">
+        <h5>Derniers patients</h5>
+        <ul class="list-group" id="recent-patients"></ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const API = "http://127.0.0.1:8000/api";
+const token = localStorage.getItem("access");
+
+const role  = localStorage.getItem("role");
+
+// Pas connecté → login
+if (!token) window.location.href = "index.html";
+
+// Patient essaie d'accéder au dashboard admin → refus
+if (role === 'patient') window.location.href = "patient_dashboard.html";
+/* AUTH CHECK */
+if (!token) {
+  Swal.fire({
+    icon: "warning",
+    title: "Accès refusé",
+    text: "Veuillez vous connecter"
+  }).then(() => {
+    window.location.href = "index.html";
+  });
+}
+
+/* USER INFO */
+const username = localStorage.getItem("username") || "Admin";
+document.getElementById("username").textContent = username;
+document.getElementById("avatar").textContent = username.substring(0,2).toUpperCase();
+
+/* DATE */
+document.getElementById("date").textContent =
+  new Date().toLocaleDateString("fr-FR", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+
+const headers = {
+  "Authorization": "Bearer " + token,
+  "Content-Type": "application/json"
+};
+
+/* LOAD DASHBOARD */
+async function loadDashboard() {
+
+  Swal.fire({
+    title: "Chargement...",
+    allowOutsideClick: false,
+    didOpen: () => Swal.showLoading()
+  });
+
+  try {
+
+    const [patients, consultations, medecins, paiements] = await Promise.all([
+      fetch(`${API}/patients/`, { headers }).then(r => r.json()),
+      fetch(`${API}/consultations/aujourd_hui/`, { headers }).then(r => r.json()),
+      fetch(`${API}/medecins/`, { headers }).then(r => r.json()),
+      fetch(`${API}/paiements/`, { headers }).then(r => r.json())
+    ]);
+
+    /* STATS */
+    document.getElementById("patients").textContent = patients.length || 0;
+    document.getElementById("consultations").textContent = consultations.length || 0;
+    document.getElementById("medecins").textContent = medecins.length || 0;
+
+    const totalPaiements = paiements.reduce((s,p) => s + (p.montant || 0), 0);
+    document.getElementById("paiements").textContent = totalPaiements + " DH";
+
+    /* CONSULTATIONS */
+    const tbody = document.getElementById("today-consultations");
+    tbody.innerHTML = consultations.length ? consultations.map(c => `
+      <tr>
+        <td>${c.patient_detail?.user?.first_name || "Patient"}</td>
+        <td>${new Date(c.date_rendezvous).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</td>
+        <td>${c.statut}</td>
+      </tr>
+    `).join("") : "<tr><td colspan='3'>Aucune consultation</td></tr>";
+
+    /* PATIENTS */
+    const list = document.getElementById("recent-patients");
+    list.innerHTML = patients.slice(0,5).map(p => `
+      <li class="list-group-item">
+        ${p.user?.first_name || ""} ${p.user?.last_name || ""}
+      </li>
+    `).join("");
+
+    Swal.close();
+
+  } catch (e) {
+    Swal.fire({
+      icon: "error",
+      title: "Erreur",
+      text: "Impossible de charger les données"
+    });
+  }
+}
+
+/* LOGOUT */
+function logout() {
+  Swal.fire({
+    title: "Déconnexion ?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Oui",
+    cancelButtonText: "Non"
+  }).then(res => {
+    if (res.isConfirmed) {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+  });
+}
+
+loadDashboard();
+
+</script>
+
+</body>
+</html>

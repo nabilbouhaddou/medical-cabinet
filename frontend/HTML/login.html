@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion — MediCare Pro</title>
+    <meta name="description" content="Connectez-vous à votre espace MediCare Pro pour gérer votre cabinet médical.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f3460 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Cercles décoratifs animés */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        body::before {
+            width: 500px;
+            height: 500px;
+            background: #3b82f6;
+            top: -150px;
+            left: -150px;
+        }
+
+        body::after {
+            width: 400px;
+            height: 400px;
+            background: #06b6d4;
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 3s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            justify-content: center;
+        }
+
+        .auth-logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+        }
+
+        .auth-logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .auth-logo-text span {
+            color: #38bdf8;
+        }
+
+        .auth-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f1f5f9;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .auth-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        /* Comptes de démo */
+        .demo-accounts {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+        }
+
+        .demo-accounts p {
+            font-size: 12px;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .demo-btn {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #cbd5e1;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .demo-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            color: #fff;
+        }
+
+        .demo-btn .role-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .badge-admin {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .badge-medecin {
+            background: #0891b2;
+            color: #fff;
+        }
+
+        .badge-secretaire {
+            background: #7c3aed;
+            color: #fff;
+        }
+
+        .badge-patient {
+            background: #059669;
+            color: #fff;
+        }
+
+        /* Formulaire */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #475569;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 13px 14px 13px 42px;
+            font-size: 14px;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #475569;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        input:focus+i,
+        .input-wrap:focus-within i {
+            color: #3b82f6;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #475569;
+            font-size: 15px;
+            background: none;
+            border: none;
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: #60a5fa;
+        }
+
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-login:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Alerte */
+        .alert {
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alert.show {
+            display: flex;
+        }
+
+        .alert-error {
+            background: rgba(220, 38, 38, 0.15);
+            border: 1px solid rgba(220, 38, 38, 0.4);
+            color: #fca5a5;
+        }
+
+        .alert-success {
+            background: rgba(5, 150, 105, 0.15);
+            border: 1px solid rgba(5, 150, 105, 0.4);
+            color: #6ee7b7;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .auth-footer a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #64748b;
+            font-size: 13px;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: color 0.2s;
+        }
+
+        .back-home:hover {
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-card">
+        <div class="auth-logo">
+            <div class="auth-logo-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+            <div class="auth-logo-text">Medi<span>Care</span> Pro</div>
+        </div>
+
+        <h1 class="auth-title">Bon retour !</h1>
+        <p class="auth-subtitle">Connectez-vous à votre espace de travail</p>
+
+        <!-- Comptes de démonstration -->
+        <div class="demo-accounts">
+            <p><i class="fa-solid fa-flask"></i> &nbsp;Comptes de démonstration</p>
+            <div class="demo-btns">
+                <button class="demo-btn" onclick="fillDemo('admin@medicare.ma','Admin@123')">
+                    <span class="role-badge badge-admin">Admin</span><br>admin@medicare.ma
+                </button>
+                <button class="demo-btn" onclick="fillDemo('medecin@medicare.ma','Med@123')">
+                    <span class="role-badge badge-medecin">Médecin</span><br>medecin@medicare.ma
+                </button>
+                <button class="demo-btn" onclick="fillDemo('secretaire@medicare.ma','Sec@123')">
+                    <span class="role-badge badge-secretaire">Secrétaire</span><br>secretaire@medicare.ma
+                </button>
+                <button class="demo-btn" onclick="fillDemo('patient@medicare.ma','Pat@123')">
+                    <span class="role-badge badge-patient">Patient</span><br>patient@medicare.ma
+                </button>
+            </div>
+        </div>
+
+        <!-- Alerte -->
+        <div class="alert alert-error" id="alertError">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="alertMsg">Erreur</span>
+        </div>
+
+        <!-- Formulaire -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="email">Adresse e-mail</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="email" placeholder="exemple@medicare.ma" required autocomplete="email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="••••••••" required
+                        autocomplete="current-password">
+                    <button type="button" class="toggle-password" onclick="togglePwd()">
+                        <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login" id="loginBtn">
+                <i class="fa-solid fa-right-to-bracket"></i> Se connecter
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            Pas encore de compte ? <a href="register.html">Créer un compte patient</a>
+        </div>
+
+        <a href="../HTML/Index .html" class="back-home">
+            <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil
+        </a>
+    </div>
+
+    <script src="../JS/auth.js"></script>
+    <script>
+        // Rediriger si déjà connecté
+        const existingSession = getSession();
+        if (existingSession) {
+            window.location.href = ROLE_DASHBOARDS[existingSession.role];
+        }
+
+        function fillDemo(email, pwd) {
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = pwd;
+            document.getElementById('email').focus();
+        }
+
+        function togglePwd() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-solid fa-eye';
+            }
+        }
+
+        function showError(msg) {
+            const alert = document.getElementById('alertError');
+            document.getElementById('alertMsg').textContent = msg;
+            alert.classList.add('show');
+            setTimeout(() => alert.classList.remove('show'), 4000);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            // État chargement
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Vérification...';
+
+            // Simuler délai réseau (500ms)
+            setTimeout(() => {
+                const result = login(email, password);
+
+                if (result.success) {
+                    btn.innerHTML = '<i class="fa-solid fa-check"></i> Connecté !';
+                    // Redirection selon le rôle
+                    setTimeout(() => {
+                        window.location.href = ROLE_DASHBOARDS[result.user.role];
+                    }, 600);
+                } else {
+                    showError(result.message);
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Se connecter';
+                }
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>

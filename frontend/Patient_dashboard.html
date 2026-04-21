@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabinet Médical — Espace Patient</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+  body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; }
+
+  /* Sidebar */
+  .sidebar { width: 240px; min-height: 100vh; background: #0f4c81; position: fixed; top: 0; left: 0; z-index: 100; }
+  .sidebar-logo { padding: 1.5rem; border-bottom: 1px solid #1a5f9e; }
+  .nav-link { color: #9bc4e8; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 10px; font-size: 14px; transition: all 0.2s; }
+  .nav-link:hover, .nav-link.active { background: #1a5f9e; color: white; }
+  .nav-link i { font-size: 18px; width: 22px; }
+  .nav-section { color: #4a7fa8; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; padding: 1rem 1.5rem 0.5rem; }
+  .patient-badge { background: #dcfce7; color: #16a34a; font-size: 12px; padding: 3px 10px; border-radius: 20px; }
+
+  /* Main */
+  .main-content { margin-left: 240px; padding: 2rem; }
+  .topbar { background: white; border-radius: 12px; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+
+  /* Cards */
+  .stat-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-left: 4px solid; }
+  .stat-card.blue { border-color: #1a6fc4; }
+  .stat-card.green { border-color: #16a34a; }
+  .stat-card.orange { border-color: #ea580c; }
+  .stat-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .stat-icon.blue { background: #eff6ff; color: #1a6fc4; }
+  .stat-icon.green { background: #f0fdf4; color: #16a34a; }
+  .stat-icon.orange { background: #fff7ed; color: #ea580c; }
+
+  .card { border: none; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card-header { background: white; border-bottom: 1px solid #f0f4f8; border-radius: 12px 12px 0 0 !important; padding: 1rem 1.5rem; }
+
+  /* Table */
+  .table th { font-size: 13px; color: #6b7280; font-weight: 500; }
+  .table td { font-size: 14px; vertical-align: middle; }
+
+  /* Badges statut */
+  .badge-planifie { background: #eff6ff; color: #1a6fc4; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+  .badge-termine { background: #f0fdf4; color: #16a34a; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+  .badge-annule { background: #fef2f2; color: #dc2626; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+  .badge-en_cours { background: #fff7ed; color: #ea580c; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+  .badge-paye { background: #f0fdf4; color: #16a34a; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+  .badge-en_attente { background: #fff7ed; color: #ea580c; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+
+  /* Form */
+  .form-control, .form-select { border-radius: 8px; border: 1px solid #dde3ec; }
+  .form-control:focus, .form-select:focus { border-color: #1a6fc4; box-shadow: 0 0 0 3px rgba(26,111,196,0.12); }
+  .btn-primary { background: #1a6fc4; border: none; }
+  .btn-primary:hover { background: #155aa0; }
+
+  /* Modal */
+  .modal-content { border-radius: 16px; border: none; }
+  .modal-header { border-bottom: 1px solid #f0f4f8; }
+
+  /* Section tabs */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* Avatar */
+  .avatar-lg { width: 64px; height: 64px; border-radius: 50%; background: #dbeafe; color: #1d4ed8; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 600; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<!-- Sidebar Patient -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="d-flex align-items-center gap-2">
+      <div style="background:#1a6fc4;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;">
+        <i class="bi bi-hospital"></i>
+      </div>
+      <div>
+        <h6 style="color:white;margin:0;font-size:14px;">Cabinet Médical</h6>
+        <span class="patient-badge">Espace Patient</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mt-2">
+    <div class="nav-section">Mon espace</div>
+    <a href="#" class="nav-link active" onclick="showSection('accueil', this)">
+      <i class="bi bi-grid"></i> Accueil
+    </a>
+    <a href="#" class="nav-link" onclick="showSection('rendezvous', this)">
+      <i class="bi bi-calendar-plus"></i> Prendre RDV
+    </a>
+    <a href="#" class="nav-link" onclick="showSection('consultations', this)">
+      <i class="bi bi-clock-history"></i> Mes consultations
+    </a>
+    <a href="#" class="nav-link" onclick="showSection('paiements', this)">
+      <i class="bi bi-receipt"></i> Mes paiements
+    </a>
+    <div class="nav-section">Compte</div>
+    <a href="#" class="nav-link" onclick="showSection('profil', this)">
+      <i class="bi bi-person-circle"></i> Mon profil
+    </a>
+
+    <div style="position:absolute;bottom:0;width:100%;padding:1rem 1.5rem;border-top:1px solid #1a5f9e;">
+      <button class="btn w-100 text-start" style="color:#9bc4e8;font-size:14px;" onclick="logout()">
+        <i class="bi bi-box-arrow-left me-2"></i>Déconnexion
+      </button>
+    </div>
+  </nav>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div>
+      <h5 class="mb-0 fw-bold" style="color:#1a2332;" id="page-title">Accueil</h5>
+      <small class="text-muted" id="page-subtitle">Bienvenue dans votre espace patient</small>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <span class="text-muted" style="font-size:14px;">
+        Bonjour, <strong id="username-display">--</strong>
+      </span>
+      <div style="width:36px;height:36px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;" id="user-avatar">--</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION ACCUEIL ═══════ -->
+  <div id="section-accueil" class="section active">
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="stat-card blue">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-muted mb-1" style="font-size:13px;">Mes consultations</p>
+              <h3 class="fw-bold mb-0" id="stat-consultations">--</h3>
+            </div>
+            <div class="stat-icon blue"><i class="bi bi-calendar-check"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card green">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-muted mb-1" style="font-size:13px;">Consultations terminées</p>
+              <h3 class="fw-bold mb-0" id="stat-terminees">--</h3>
+            </div>
+            <div class="stat-icon green"><i class="bi bi-check-circle"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card orange">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-muted mb-1" style="font-size:13px;">Paiements en attente</p>
+              <h3 class="fw-bold mb-0" id="stat-attente">--</h3>
+            </div>
+            <div class="stat-icon orange"><i class="bi bi-clock"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prochains RDV -->
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h6 class="mb-0 fw-bold"><i class="bi bi-calendar-event me-2 text-primary"></i>Mes prochains rendez-vous</h6>
+        <button class="btn btn-sm btn-primary" onclick="showSection('rendezvous', null)">
+          <i class="bi bi-plus me-1"></i>Prendre RDV
+        </button>
+      </div>
+      <div class="card-body p-0">
+        <table class="table mb-0">
+          <thead style="background:#f8fafc;">
+            <tr>
+              <th class="ps-3">Date</th>
+              <th>Heure</th>
+              <th>Médecin</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody id="prochains-rdv">
+            <tr><td colspan="4" class="text-center py-4 text-muted">Chargement...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION PRENDRE RDV ═══ -->
+  <div id="section-rendezvous" class="section">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <div class="card p-4">
+          <h6 class="fw-bold mb-4"><i class="bi bi-calendar-plus me-2 text-primary"></i>Demander un rendez-vous</h6>
+
+          <div class="alert alert-info" style="font-size:13px;border-radius:8px;">
+            <i class="bi bi-info-circle me-1"></i>
+            Votre demande sera traitée par la secrétaire et confirmée dans les plus brefs délais.
+          </div>
+
+          <div class="alert alert-danger d-none" id="rdv-error"></div>
+          <div class="alert alert-success d-none" id="rdv-success"></div>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Médecin <span class="text-danger">*</span></label>
+              <select id="rdv-medecin" class="form-select">
+                <option value="">-- Sélectionner un médecin --</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Date souhaitée <span class="text-danger">*</span></label>
+              <input type="date" id="rdv-date" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Heure souhaitée <span class="text-danger">*</span></label>
+              <input type="time" id="rdv-heure" class="form-control">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Motif de consultation</label>
+              <textarea id="rdv-motif" class="form-control" rows="3" placeholder="Décrivez brièvement le motif de votre visite..."></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100 mt-4" onclick="demanderRDV()" id="btn-rdv">
+            <i class="bi bi-send me-2"></i>Envoyer la demande
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION CONSULTATIONS ══ -->
+  <div id="section-consultations" class="section">
+    <div class="card">
+      <div class="card-header">
+        <h6 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2 text-primary"></i>Historique de mes consultations</h6>
+      </div>
+      <div class="card-body p-0">
+        <table class="table mb-0">
+          <thead style="background:#f8fafc;">
+            <tr>
+              <th class="ps-3">Date</th>
+              <th>Médecin</th>
+              <th>Diagnostic</th>
+              <th>Ordonnance</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody id="mes-consultations">
+            <tr><td colspan="5" class="text-center py-4 text-muted">Chargement...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION PAIEMENTS ══════ -->
+  <div id="section-paiements" class="section">
+    <div class="card">
+      <div class="card-header">
+        <h6 class="mb-0 fw-bold"><i class="bi bi-receipt me-2 text-primary"></i>Mes paiements</h6>
+      </div>
+      <div class="card-body p-0">
+        <table class="table mb-0">
+          <thead style="background:#f8fafc;">
+            <tr>
+              <th class="ps-3">Date</th>
+              <th>Consultation</th>
+              <th>Montant</th>
+              <th>Méthode</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody id="mes-paiements">
+            <tr><td colspan="5" class="text-center py-4 text-muted">Chargement...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION PROFIL ═════════ -->
+  <div id="section-profil" class="section">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card p-4 text-center">
+          <div class="avatar-lg mb-3" id="profil-avatar">--</div>
+          <h5 class="fw-bold" id="profil-nom">--</h5>
+          <p class="text-muted" style="font-size:14px;">@<span id="profil-username">--</span></p>
+          <span style="background:#dcfce7;color:#16a34a;padding:4px 14px;border-radius:20px;font-size:13px;">Patient</span>
+
+          <hr class="my-3">
+
+          <div class="text-start">
+            <div class="mb-2 d-flex justify-content-between">
+              <span class="text-muted" style="font-size:14px;"><i class="bi bi-envelope me-2"></i>Email</span>
+              <span style="font-size:14px;" id="profil-email">--</span>
+            </div>
+            <div class="mb-2 d-flex justify-content-between">
+              <span class="text-muted" style="font-size:14px;"><i class="bi bi-telephone me-2"></i>Téléphone</span>
+              <span style="font-size:14px;" id="profil-telephone">--</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const API   = "http://127.0.0.1:8000/api";
+const token = localStorage.getItem("access");
+const role  = localStorage.getItem("role");
+
+/* Sécurité — si pas connecté ou pas patient */
+if (!token) window.location.href = "index.html";
+if (role && role !== "patient") window.location.href = "dashboard.html";
+
+const headers = {
+  "Authorization": `Bearer ${token}`,
+  "Content-Type": "application/json"
+};
+
+let patientId  = null;
+let userData   = null;
+
+/* ── Navigation sections ─────────────────────────────── */
+function showSection(name, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(`section-${name}`).classList.add('active');
+  if (btn) btn.classList.add('active');
+
+  const titles = {
+    accueil:       ['Accueil', 'Bienvenue dans votre espace patient'],
+    rendezvous:    ['Prendre un rendez-vous', 'Demandez une consultation'],
+    consultations: ['Mes consultations', 'Historique de vos consultations'],
+    paiements:     ['Mes paiements', 'Suivi de vos paiements'],
+    profil:        ['Mon profil', 'Vos informations personnelles'],
+  };
+  document.getElementById('page-title').textContent    = titles[name][0];
+  document.getElementById('page-subtitle').textContent = titles[name][1];
+
+  if (name === 'consultations') loadConsultations();
+  if (name === 'paiements')     loadPaiements();
+  if (name === 'rendezvous')    loadMedecins();
+}
+
+/* ── Charger le profil ───────────────────────────────── */
+async function loadProfil() {
+  try {
+    const res  = await fetch(`${API}/users/me/`, { headers });
+    userData   = await res.json();
+
+    const username = userData.username || '';
+    const nom      = `${userData.first_name || ''} ${userData.last_name || ''}`.trim() || username;
+    const initiales = `${(userData.first_name||'P').charAt(0)}${(userData.last_name||'').charAt(0)}`.toUpperCase();
+
+    localStorage.setItem("user_id", userData.id);
+
+    document.getElementById('username-display').textContent = nom;
+    document.getElementById('user-avatar').textContent      = initiales;
+
+    document.getElementById('profil-nom').textContent       = nom;
+    document.getElementById('profil-username').textContent  = username;
+    document.getElementById('profil-email').textContent     = userData.email || '--';
+    document.getElementById('profil-telephone').textContent = userData.telephone || '--';
+    document.getElementById('profil-avatar').textContent    = initiales;
+
+    /* Trouver l'ID patient lié à cet utilisateur */
+    const pRes    = await fetch(`${API}/patients/`, { headers });
+    const patients = await pRes.json();
+    const myPatient = patients.find(p => p.user?.id === userData.id || p.user === userData.id);
+    if (myPatient) patientId = myPatient.id;
+
+    loadAccueil();
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+/* ── Accueil stats ───────────────────────────────────── */
+async function loadAccueil() {
+  if (!patientId) {
+    document.getElementById('stat-consultations').textContent = '0';
+    document.getElementById('stat-terminees').textContent     = '0';
+    document.getElementById('stat-attente').textContent       = '0';
+    document.getElementById('prochains-rdv').innerHTML        = '<tr><td colspan="4" class="text-center py-4 text-muted">Aucun rendez-vous</td></tr>';
+    return;
+  }
+
+  try {
+    const res  = await fetch(`${API}/consultations/`, { headers });
+    const all  = await res.json();
+    const mine = all.filter(c => c.patient === patientId || c.patient_detail?.id === patientId);
+
+    document.getElementById('stat-consultations').textContent = mine.length;
+    document.getElementById('stat-terminees').textContent     = mine.filter(c => c.statut === 'termine').length;
+
+    /* Paiements en attente */
+    const pRes  = await fetch(`${API}/paiements/`, { headers });
+    const paies = await pRes.json();
+    const myPaies = paies.filter(p => {
+      const cId = p.consultation;
+      return mine.some(c => c.id === cId) && p.statut === 'en_attente';
+    });
+    document.getElementById('stat-attente').textContent = myPaies.length;
+
+    /* Prochains RDV */
+    const upcoming = mine
+      .filter(c => c.statut === 'planifie' && new Date(c.date_rendezvous) >= new Date())
+      .sort((a,b) => new Date(a.date_rendezvous) - new Date(b.date_rendezvous))
+      .slice(0, 5);
+
+    const tbody = document.getElementById('prochains-rdv');
+    if (!upcoming.length) {
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-muted">Aucun rendez-vous à venir</td></tr>';
+    } else {
+      tbody.innerHTML = upcoming.map(c => {
+        const d = new Date(c.date_rendezvous);
+        const medecin = c.medecin_detail ? `Dr. ${c.medecin_detail.first_name||''} ${c.medecin_detail.last_name||''}` : '--';
+        return `<tr>
+          <td class="ps-3">${d.toLocaleDateString('fr-FR')}</td>
+          <td>${d.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'})}</td>
+          <td>${medecin}</td>
+          <td><span class="badge-planifie">Planifié</span></td>
+        </tr>`;
+      }).join('');
+    }
+  } catch(e) { console.error(e); }
+}
+
+/* ── Charger médecins pour le formulaire RDV ─────────── */
+async function loadMedecins() {
+  try {
+    const res = await fetch(`${API}/medecins/`, { headers });
+    const medecins = await res.json();
+    const sel = document.getElementById('rdv-medecin');
+    sel.innerHTML = '<option value="">-- Sélectionner un médecin --</option>';
+    medecins.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.user?.id || m.id;
+      opt.textContent = `Dr. ${m.user?.first_name||''} ${m.user?.last_name||''} — ${m.specialite||''}`;
+      sel.appendChild(opt);
+    });
+  } catch(e) { console.error(e); }
+}
+
+/* ── Demander un RDV ─────────────────────────────────── */
+async function demanderRDV() {
+  const errDiv  = document.getElementById('rdv-error');
+  const succDiv = document.getElementById('rdv-success');
+  errDiv.classList.add('d-none');
+  succDiv.classList.add('d-none');
+
+  const medecinId = document.getElementById('rdv-medecin').value;
+  const date      = document.getElementById('rdv-date').value;
+  const heure     = document.getElementById('rdv-heure').value;
+
+  if (!medecinId || !date || !heure) {
+    errDiv.textContent = 'Veuillez remplir tous les champs obligatoires.';
+    errDiv.classList.remove('d-none');
+    return;
+  }
+  if (!patientId) {
+    errDiv.textContent = 'Profil patient introuvable. Contactez l\'administrateur.';
+    errDiv.classList.remove('d-none');
+    return;
+  }
+
+  const btn = document.getElementById('btn-rdv');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Envoi...';
+
+  try {
+    const res = await fetch(`${API}/consultations/`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        patient: patientId,
+        medecin: medecinId,
+        date_rendezvous: `${date}T${heure}:00`,
+        statut: 'planifie',
+        observation: document.getElementById('rdv-motif').value
+      })
+    });
+
+    if (res.ok) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Demande envoyée !',
+        text: 'Votre rendez-vous a été planifié avec succès.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+      document.getElementById('rdv-date').value  = '';
+      document.getElementById('rdv-heure').value = '';
+      document.getElementById('rdv-motif').value = '';
+      document.getElementById('rdv-medecin').value = '';
+      loadAccueil();
+    } else {
+      const data = await res.json();
+      errDiv.textContent = data.detail || 'Erreur lors de la demande.';
+      errDiv.classList.remove('d-none');
+    }
+  } catch(e) {
+    errDiv.textContent = 'Impossible de contacter le serveur.';
+    errDiv.classList.remove('d-none');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="bi bi-send me-2"></i>Envoyer la demande';
+}
+
+/* ── Mes consultations ───────────────────────────────── */
+async function loadConsultations() {
+  const tbody = document.getElementById('mes-consultations');
+  tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Chargement...</td></tr>';
+
+  try {
+    const res  = await fetch(`${API}/consultations/`, { headers });
+    const all  = await res.json();
+    const mine = all.filter(c => c.patient === patientId || c.patient_detail?.id === patientId);
+
+    if (!mine.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Aucune consultation</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = mine.map(c => {
+      const d = new Date(c.date_rendezvous);
+      const medecin = c.medecin_detail ? `Dr. ${c.medecin_detail.first_name||''} ${c.medecin_detail.last_name||''}` : '--';
+      const badgeClass = `badge-${c.statut}`;
+      return `<tr>
+        <td class="ps-3">${d.toLocaleDateString('fr-FR')}</td>
+        <td>${medecin}</td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.diagnostic || '--'}</td>
+        <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.ordonnance || '--'}</td>
+        <td><span class="${badgeClass}">${c.statut}</span></td>
+      </tr>`;
+    }).join('');
+  } catch(e) { tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-danger">Erreur de chargement</td></tr>'; }
+}
+
+/* ── Mes paiements ───────────────────────────────────── */
+async function loadPaiements() {
+  const tbody = document.getElementById('mes-paiements');
+  tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Chargement...</td></tr>';
+
+  try {
+    const [consRes, paieRes] = await Promise.all([
+      fetch(`${API}/consultations/`, { headers }).then(r => r.json()),
+      fetch(`${API}/paiements/`, { headers }).then(r => r.json()),
+    ]);
+
+    const mesConsIds = consRes
+      .filter(c => c.patient === patientId || c.patient_detail?.id === patientId)
+      .map(c => c.id);
+
+    const mesPaies = paieRes.filter(p => mesConsIds.includes(p.consultation));
+
+    if (!mesPaies.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Aucun paiement</td></tr>';
+      return;
+    }
+
+    const methodeLabels = { cash: 'Cash', carte: 'Carte bancaire', virement: 'Virement', assurance: 'Assurance' };
+
+    tbody.innerHTML = mesPaies.map(p => `<tr>
+      <td class="ps-3">${p.date_paiement || '--'}</td>
+      <td>Consultation #${p.consultation}</td>
+      <td><strong>${parseFloat(p.montant).toFixed(2)} DH</strong></td>
+      <td>${methodeLabels[p.methode] || p.methode}</td>
+      <td><span class="badge-${p.statut}">${p.statut}</span></td>
+    </tr>`).join('');
+  } catch(e) { tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-danger">Erreur de chargement</td></tr>'; }
+}
+
+/* ── Déconnexion ─────────────────────────────────────── */
+function logout() {
+  localStorage.clear();
+  window.location.href = "index.html";
+}
+
+/* ── Init ────────────────────────────────────────────── */
+loadProfil();
+</script>
+</body>
+</html>

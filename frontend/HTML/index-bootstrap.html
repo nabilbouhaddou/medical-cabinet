@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CabinetCare | Accueil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/home.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top app-navbar">
+        <div class="container">
+            <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="#accueil">
+                <span class="brand-mark">C+</span>
+                <span>CabinetCare</span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Ouvrir le menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                    <li class="nav-item"><a class="nav-link" href="#accueil">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#apropos">A propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#authentification">Connexion</a></li>
+                    <li class="nav-item ms-lg-2"><a class="btn btn-brand" href="#authentification">S'inscrire</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <section class="hero-section" id="accueil">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <span class="hero-badge">Gestion moderne pour cabinet medical</span>
+                        <h1 class="display-4 fw-bold hero-title">Une page d'accueil claire avec login et register pour votre projet medical.</h1>
+                        <p class="hero-text">Simplifiez la gestion des patients, des rendez-vous et de l'equipe avec une interface professionnelle, responsive et facile a connecter a votre backend plus tard.</p>
+                        <div class="d-flex flex-wrap gap-3 hero-actions">
+                            <a href="#authentification" class="btn btn-brand btn-lg">Commencer</a>
+                            <a href="#services" class="btn btn-outline-light btn-lg">Voir les services</a>
+                        </div>
+                        <div class="row g-3 stats-row">
+                            <div class="col-4"><div class="stat-card"><strong>24/7</strong><span>Support</span></div></div>
+                            <div class="col-4"><div class="stat-card"><strong>100%</strong><span>Responsive</span></div></div>
+                            <div class="col-4"><div class="stat-card"><strong>Bootstrap</strong><span>UI rapide</span></div></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-panel">
+                            <div class="hero-panel-top"><span class="mini-dot"></span><span class="mini-dot"></span><span class="mini-dot"></span></div>
+                            <div class="hero-panel-body">
+                                <div class="appointment-card">
+                                    <p class="small text-uppercase mb-2">Aujourd'hui</p>
+                                    <h3 class="h4 mb-3">Tableau rapide</h3>
+                                    <div class="dashboard-line"><span>Consultations</span><strong>18</strong></div>
+                                    <div class="progress app-progress mb-3"><div class="progress-bar" style="width: 72%"></div></div>
+                                    <div class="dashboard-line"><span>Nouveaux patients</span><strong>06</strong></div>
+                                    <div class="progress app-progress mb-3"><div class="progress-bar bg-info" style="width: 54%"></div></div>
+                                    <div class="next-visit">
+                                        <span class="visit-label">Prochain rendez-vous</span>
+                                        <strong>09:30 - M. Amine El Idrissi</strong>
+                                        <small>Consultation generale</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5 services-section" id="services">
+            <div class="container py-lg-5">
+                <div class="section-heading text-center">
+                    <span class="section-kicker">Services</span>
+                    <h2 class="fw-bold">Une interface faite pour votre cabinet</h2>
+                    <p class="text-muted mb-0">Une base front-end simple pour demarrer rapidement votre application.</p>
+                </div>
+                <div class="row g-4 mt-4">
+                    <div class="col-md-6 col-xl-3"><div class="service-box h-100"><h3 class="h5">Gestion des patients</h3><p class="mb-0">Consultez et organisez facilement les informations essentielles de chaque patient.</p></div></div>
+                    <div class="col-md-6 col-xl-3"><div class="service-box h-100"><h3 class="h5">Rendez-vous</h3><p class="mb-0">Ajoutez ensuite un calendrier ou une prise de rendez-vous en ligne a cette base.</p></div></div>
+                    <div class="col-md-6 col-xl-3"><div class="service-box h-100"><h3 class="h5">Connexion securisee</h3><p class="mb-0">Le design inclut deja un formulaire de connexion pret a relier a votre API.</p></div></div>
+                    <div class="col-md-6 col-xl-3"><div class="service-box h-100"><h3 class="h5">Inscription rapide</h3><p class="mb-0">Le formulaire d'inscription permet de creer la base de votre parcours utilisateur.</p></div></div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5 about-section" id="apropos">
+            <div class="container py-lg-5">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-6">
+                        <div class="about-card">
+                            <span class="section-kicker">A propos</span>
+                            <h2 class="fw-bold mb-3">Un design propre, moderne et facile a personnaliser</h2>
+                            <p class="text-muted">Cette page utilise Bootstrap pour la grille et les composants, du CSS personnalise pour l'identite visuelle, et du JavaScript leger pour basculer entre login et register, afficher les mots de passe et valider les champs.</p>
+                            <ul class="feature-list mb-0">
+                                <li>Compatible mobile, tablette et desktop</li>
+                                <li>Structure simple a connecter avec PHP, Laravel ou Node.js</li>
+                                <li>Code separe en HTML, CSS et JS</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-visual-card">
+                            <div class="visual-pill">Frontend medical</div>
+                            <div class="visual-grid">
+                                <div class="visual-item"><strong>Patients</strong><span>342 dossiers</span></div>
+                                <div class="visual-item"><strong>RDV</strong><span>18 aujourd'hui</span></div>
+                                <div class="visual-item"><strong>Equipe</strong><span>8 utilisateurs</span></div>
+                                <div class="visual-item"><strong>Messages</strong><span>12 non lus</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5 auth-section" id="authentification">
+            <div class="container py-lg-5">
+                <div class="row justify-content-center">
+                    <div class="col-xl-10">
+                        <div class="auth-shell">
+                            <div class="row g-0">
+                                <div class="col-lg-5 auth-intro">
+                                    <span class="section-kicker text-dark bg-white">Espace utilisateur</span>
+                                    <h2 class="fw-bold">Connexion et inscription dans une seule page</h2>
+                                    <p class="mb-4">Utilise les onglets pour basculer entre les deux formulaires. Le comportement est deja pret cote front.</p>
+                                    <div class="auth-points">
+                                        <div class="auth-point">Interface Bootstrap</div>
+                                        <div class="auth-point">Validation simple</div>
+                                        <div class="auth-point">Affichage du mot de passe</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="auth-card">
+                                        <ul class="nav nav-pills nav-fill auth-tabs mb-4" role="tablist">
+                                            <li class="nav-item" role="presentation"><button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#login-pane" type="button" role="tab" aria-controls="login-pane" aria-selected="true">Login</button></li>
+                                            <li class="nav-item" role="presentation"><button class="nav-link" id="register-tab" data-bs-toggle="pill" data-bs-target="#register-pane" type="button" role="tab" aria-controls="register-pane" aria-selected="false">Register</button></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="login-pane" role="tabpanel" aria-labelledby="login-tab" tabindex="0">
+                                                <form id="loginForm" novalidate>
+                                                    <div class="mb-3">
+                                                        <label for="loginEmail" class="form-label">Email</label>
+                                                        <input type="email" class="form-control form-control-lg" id="loginEmail" placeholder="admin@cabinetcare.com" required>
+                                                        <div class="invalid-feedback">Veuillez saisir un email valide.</div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="loginPassword" class="form-label">Mot de passe</label>
+                                                        <div class="input-group input-group-lg">
+                                                            <input type="password" class="form-control" id="loginPassword" placeholder="Votre mot de passe" required minlength="6">
+                                                            <button class="btn btn-outline-secondary password-toggle" type="button" data-target="loginPassword">Afficher</button>
+                                                        </div>
+                                                        <div class="invalid-feedback d-block feedback-hidden" id="loginPasswordFeedback">Le mot de passe doit contenir au moins 6 caracteres.</div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+                                                            <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+                                                        </div>
+                                                        <a href="#" class="small text-decoration-none">Mot de passe oublie ?</a>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-brand w-100 btn-lg">Se connecter</button>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane fade" id="register-pane" role="tabpanel" aria-labelledby="register-tab" tabindex="0">
+                                                <form id="registerForm" novalidate>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label for="firstName" class="form-label">Prenom</label>
+                                                            <input type="text" class="form-control form-control-lg" id="firstName" placeholder="Issam" required>
+                                                            <div class="invalid-feedback">Ce champ est obligatoire.</div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="lastName" class="form-label">Nom</label>
+                                                            <input type="text" class="form-control form-control-lg" id="lastName" placeholder="Alaoui" required>
+                                                            <div class="invalid-feedback">Ce champ est obligatoire.</div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="registerEmail" class="form-label">Email</label>
+                                                            <input type="email" class="form-control form-control-lg" id="registerEmail" placeholder="contact@cabinetcare.com" required>
+                                                            <div class="invalid-feedback">Veuillez saisir un email valide.</div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="registerPassword" class="form-label">Mot de passe</label>
+                                                            <div class="input-group input-group-lg">
+                                                                <input type="password" class="form-control" id="registerPassword" placeholder="Minimum 6 caracteres" required minlength="6">
+                                                                <button class="btn btn-outline-secondary password-toggle" type="button" data-target="registerPassword">Afficher</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="confirmPassword" class="form-label">Confirmer</label>
+                                                            <div class="input-group input-group-lg">
+                                                                <input type="password" class="form-control" id="confirmPassword" placeholder="Repeter le mot de passe" required minlength="6">
+                                                                <button class="btn btn-outline-secondary password-toggle" type="button" data-target="confirmPassword">Afficher</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                                                <label class="form-check-label" for="termsCheck">J'accepte les conditions d'utilisation.</label>
+                                                                <div class="invalid-feedback">Vous devez accepter les conditions.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="small mt-2 mb-3 feedback-hidden text-danger" id="registerPasswordFeedback">Les mots de passe doivent correspondre et contenir au moins 6 caracteres.</div>
+                                                    <button type="submit" class="btn btn-dark w-100 btn-lg">Creer un compte</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-success mt-4 mb-0 d-none" id="formAlert" role="alert"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="app-footer py-4">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <p class="mb-0">2026 CabinetCare. Page d'accueil HTML, CSS, JS et Bootstrap.</p>
+            <a href="#accueil" class="text-decoration-none">Retour en haut</a>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../JS/home.js"></script>
+</body>
+</html>

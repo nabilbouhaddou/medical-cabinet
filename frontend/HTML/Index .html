@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediCare Pro — Gestion de Cabinet Médical</title>
+    <link rel="stylesheet" href="../CSS/Style.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#" class="nav-logo">
+                <span class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></span>
+                <span class="logo-text">Medi<strong>Care</strong> Pro</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil" class="nav-link active">Accueil</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#apropos" class="nav-link">À propos</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="login.html" class="btn-login" id="mainAuthBtn">Se connecter <i
+                            class="fa-solid fa-arrow-right-to-bracket"></i></a>
+                </li>
+            </ul>
+
+            <!-- Hamburger -->
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="accueil">
+        <!-- Decorative background -->
+        <div class="hero-bg">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-grid"></div>
+        </div>
+
+        <div class="hero-content">
+
+            <h1 class="hero-title">
+                La gestion de votre cabinet,<br>
+                <em>réinventée.</em>
+            </h1>
+            <p class="hero-desc">
+                Simplifiez votre quotidien médical avec une solution tout-en-un : dossiers patients, prise de
+                rendez-vous, facturation et bien plus — accessible partout, à tout moment.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn-primary">
+                    <i class="fa-regular fa-calendar-check"></i> Prendre rendez-vous
+                </a>
+                <a href="#services" class="btn-ghost">
+                    Découvrir les fonctionnalités <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+            <!-- Stats Row -->
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num" data-target="1200">0</span><span>+</span>
+                    <span class="stat-label">Cabinets actifs</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-target="98">0</span><span>%</span>
+                    <span class="stat-label">Satisfaction client</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-target="24">0</span><span>/7</span>
+                    <span class="stat-label">Support disponible</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero visual card -->
+        <div class="hero-visual">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span class="card-title-small">Tableau de bord</span>
+                </div>
+                <div class="card-body">
+                    <div class="mini-stats">
+                        <div class="mini-stat mini-stat-blue">
+                            <i class="fa-solid fa-user-injured"></i>
+                            <div>
+                                <span class="mini-val">342</span>
+                                <span class="mini-lbl">Patients</span>
+                            </div>
+                        </div>
+                        <div class="mini-stat mini-stat-teal">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <div>
+                                <span class="mini-val">18</span>
+                                <span class="mini-lbl">RDV aujourd'hui</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fake bar chart -->
+                    <div class="mini-chart">
+                        <div class="chart-label">Consultations / semaine</div>
+                        <div class="bars">
+                            <div class="bar" style="--h:55%"></div>
+                            <div class="bar" style="--h:70%"></div>
+                            <div class="bar" style="--h:45%"></div>
+                            <div class="bar bar-active" style="--h:90%"></div>
+                            <div class="bar" style="--h:60%"></div>
+                            <div class="bar" style="--h:80%"></div>
+                            <div class="bar" style="--h:65%"></div>
+                        </div>
+                        <div class="bar-labels">
+                            <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                        </div>
+                    </div>
+                    <!-- Upcoming appointment -->
+                    <div class="upcoming">
+                        <div class="upcoming-label">Prochain RDV</div>
+                        <div class="upcoming-item">
+                            <div class="avatar">AM</div>
+                            <div class="upcoming-info">
+                                <span class="upcoming-name">Amina Mansouri</span>
+                                <span class="upcoming-time"><i class="fa-regular fa-clock"></i> 09h30 — Consultation
+                                    générale</span>
+                            </div>
+                            <span class="badge-rdv">Confirmé</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Floating pills -->
+            <div class="floating-pill pill-2"><i class="fa-solid fa-bolt"></i> Synchronisation temps réel</div>
+        </div>
+    </section>
+
+    <!-- ========== SERVICES ========== -->
+    <section class="services" id="services">
+        <div class="section-container">
+            <div class="section-label">Nos fonctionnalités</div>
+            <h2 class="section-title">Tout ce dont votre cabinet<br>a besoin, en un seul endroit.</h2>
+            <p class="section-desc">Une suite d'outils conçus par des professionnels de santé, pour des professionnels
+                de santé.</p>
+
+            <div class="services-grid">
+
+                <!-- Card 1 -->
+                <div class="service-card" data-delay="0">
+                    <div class="service-icon service-icon-blue">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
+                    <h3>Gestion des patients</h3>
+                    <p>Créez et gérez facilement les dossiers complets de vos patients : antécédents, allergies,
+                        traitements en cours et historique de consultations.</p>
+                    <a href="#" class="card-link">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card" data-delay="100">
+                    <div class="service-icon service-icon-teal">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <h3>Rendez-vous intelligents</h3>
+                    <p>Agenda en ligne intégré avec rappels automatiques par SMS et email. Réduisez les absences et
+                        optimisez votre planning quotidien.</p>
+                    <a href="#" class="card-link">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card" data-delay="200">
+                    <div class="service-icon service-icon-indigo">
+                        <i class="fa-solid fa-file-medical"></i>
+                    </div>
+                    <h3>Dossiers médicaux électroniques</h3>
+                    <p>Accédez aux dossiers patients en temps réel depuis n'importe quel appareil. Conformes aux normes
+                        RGPD et hébergés en France.</p>
+                    <a href="#" class="card-link">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="service-card" data-delay="300">
+                    <div class="service-icon service-icon-rose">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Facturation & Comptabilité</h3>
+                    <p>Générez automatiquement vos feuilles de soins, suivez vos paiements et exportez vos données
+                        comptables en un clic.</p>
+                    <a href="#" class="card-link">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 5 -->
+
+
+
+                <div class="service-card" data-delay="400">
+                    <div class="service-icon service-icon-amber">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3>Statistiques & Rapports</h3>
+                    <p>Analysez l'activité de votre cabinet avec des tableaux de bord visuels : fréquentation, revenus,
+                        pathologies fréquentes et tendances.</p>
+                    <a href="#" class="card-link">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="service-card" data-delay="500">
+                    <div class="service-icon service-icon-emerald">
+                        <i class="fa-solid fa-pills"></i>
+                    </div>
+                    <h3>Prescriptions électroniques</h3>
+                    <p>Rédigez et envoyez des ordonnances numériques directement aux pharmacies partenaires. Gagnez du
+                        temps, éliminez les erreurs.</p>
+                    <a href="#" class="card-link">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== À PROPOS ========== -->
+    <section class="about" id="apropos">
+        <div class="section-container about-grid">
+            <!-- Left: visual -->
+            <div class="about-visual">
+                <div class="about-img-wrap">
+                    <div class="about-img-placeholder">
+                        <i class="fa-solid fa-stethoscope"></i>
+                    </div>
+                    <div class="about-badge-float">
+                        <i class="fa-solid fa-award"></i>
+                        <span>Certifié HDS<br><small>Hébergeur de données de santé</small></span>
+                    </div>
+                </div>
+                <!-- Decorative lines -->
+                <div class="about-deco"></div>
+            </div>
+
+            <!-- Right: text -->
+            <div class="about-content">
+                <div class="section-label">À propos de nous</div>
+                <h2 class="section-title left">Construire la médecine de demain, aujourd'hui.</h2>
+                <p class="about-text">
+                    Fondée en 2018, <strong>MediCare Pro</strong> est née d'une conviction : les médecins méritent des
+                    outils aussi performants que leur expertise. Nous réunissons ingénieurs, médecins et designers pour
+                    créer des solutions qui s'adaptent à votre pratique — et non l'inverse.
+                </p>
+                <p class="about-text">
+                    Notre plateforme est utilisée dans plus de <strong>1 200 cabinets</strong> à travers le Maghreb et
+                    la France, avec un engagement fort pour la confidentialité des données et la simplicité d'usage.
+                </p>
+                <ul class="about-list">
+                    <li><i class="fa-solid fa-circle-check"></i> Conformité RGPD & réglementation locale</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Support dédié 24h/7j en français et arabe</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Mises à jour régulières sans interruption</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Formation incluse pour toute l'équipe</li>
+                </ul>
+                <a href="#contact" class="btn-primary">Contactez-nous <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TÉMOIGNAGES ========== -->
+    <section class="testimonials">
+        <div class="section-container">
+            <div class="section-label">Ils nous font confiance</div>
+            <h2 class="section-title">Ce que disent<br>nos utilisateurs.</h2>
+            <div class="testimonials-grid">
+                <div class="testi-card">
+                    <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i></div>
+                    <p>"MediCare Pro a transformé mon cabinet. La gestion des rendez-vous est devenue un jeu d'enfant et
+                        mes patients adorent les rappels automatiques."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">DL</div>
+                        <div>
+                            <strong>Dr. Leila Benali</strong>
+                            <span>Médecin généraliste, Casablanca</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card testi-card-featured">
+                    <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i></div>
+                    <p>"Fini les montagnes de papier ! Les dossiers médicaux électroniques ont révolutionné notre
+                        pratique. Le support est réactif et vraiment à l'écoute."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">KA</div>
+                        <div>
+                            <strong>Dr. Karim Alaoui</strong>
+                            <span>Cardiologue, Rabat</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star-half-stroke"></i></div>
+                    <p>"La facturation automatique m'a fait économiser des heures chaque semaine. Je recommande vivement
+                        à tous mes confrères."</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar">SM</div>
+                        <div>
+                            <strong>Dr. Sara Mouline</strong>
+                            <span>Pédiatre, Marrakech</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT / CTA ========== -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="contact-grid">
+                <!-- CTA Block -->
+                <div class="cta-block">
+                    <div class="section-label light">Commencez dès aujourd'hui</div>
+                    <h2 class="section-title white">Prêt à moderniser<br>votre cabinet ?</h2>
+                    <p class="cta-desc">Essai gratuit de 30 jours, sans carte bancaire. Prise en main en moins de 15
+                        minutes.</p>
+                    <div class="cta-actions">
+                        <a href="register.html" class="btn-white">Démarrer l'essai gratuit</a>
+                        <a href="#" class="btn-outline-white"><i class="fa-solid fa-phone"></i> Nous appeler</a>
+                    </div>
+                    <div class="cta-info">
+                        <span><i class="fa-solid fa-envelope"></i> contact@medicare-pro.ma</span>
+                        <span><i class="fa-solid fa-phone"></i> +212 5 22 00 00 00</span>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="form-block">
+                    <h3>Envoyez-nous un message</h3>
+                    <div class="form-group">
+                        <label>Nom complet</label>
+                        <input type="text" placeholder="Dr. Prénom Nom" />
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse email</label>
+                        <input type="email" placeholder="votre@email.com" />
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" placeholder="+212 6 00 00 00 00" />
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="4" placeholder="Comment pouvons-nous vous aider ?"></textarea>
+                    </div>
+                    <button class="btn-primary full" id="sendBtn" onclick="handleFormSubmit(event)">
+                        <i class="fa-solid fa-paper-plane"></i> Envoyer le message
+                    </button>
+                    <div class="form-success" id="formSuccess">
+                        <i class="fa-solid fa-circle-check"></i> Message envoyé avec succès ! Nous vous répondrons sous
+                        24h.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <a href="#" class="nav-logo footer-logo">
+                        <span class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></span>
+                        <span class="logo-text">Medi<strong>Care</strong> Pro</span>
+                    </a>
+                    <p>La solution de gestion médicale pensée pour les praticiens du Maghreb et de la francophonie.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div class="footer-col">
+                    <h4>Produit</h4>
+                    <ul>
+                        <li><a href="#">Fonctionnalités</a></li>
+                        <li><a href="#">Tarifs</a></li>
+                        <li><a href="#">Nouveautés</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Entreprise</h4>
+                    <ul>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Équipe</a></li>
+                        <li><a href="#">Carrières</a></li>
+                        <li><a href="#">Presse</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Tutoriels vidéo</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>© 2025 MediCare Pro. Tous droits réservés.</span>
+                <div class="footer-legal">
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">CGU</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== CHATBOT WIDGET ========== -->
+    <div class="chatbot-wrapper" id="chatbotWrapper">
+
+        <!-- Toggle Button -->
+        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Ouvrir le chat">
+            <span class="toggle-icon toggle-open"><i class="fa-solid fa-comment-medical"></i></span>
+            <span class="toggle-icon toggle-close"><i class="fa-solid fa-xmark"></i></span>
+            <span class="chatbot-badge" id="chatbotBadge">1</span>
+        </button>
+
+        <!-- Chat Window -->
+        <div class="chatbot-window" id="chatbotWindow" aria-hidden="true">
+
+            <!-- Header -->
+            <div class="chatbot-header">
+                <div class="chatbot-header-avatar">
+                    <i class="fa-solid fa-robot"></i>
+                    <span class="chatbot-status-dot"></span>
+                </div>
+                <div class="chatbot-header-info">
+                    <strong>MediAssist</strong>
+                    <span>Assistant IA · En ligne</span>
+                </div>
+                <button class="chatbot-close-btn" id="chatbotCloseBtn" aria-label="Fermer">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+
+            <!-- Messages area -->
+            <div class="chatbot-messages" id="chatbotMessages">
+                <!-- Welcome bubble -->
+                <div class="chat-msg bot-msg" id="welcomeMsg">
+                    <div class="chat-avatar-bot"><i class="fa-solid fa-robot"></i></div>
+                    <div class="chat-bubble bot-bubble">
+                        <p>Bonjour 👋 Je suis <strong>MediAssist</strong>, votre assistant virtuel de <strong>MediCare
+                                Pro</strong>.</p>
+                        <p>Comment puis-je vous aider aujourd'hui ?</p>
+                        <span class="chat-time" id="welcomeTime"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Questions -->
+            <div class="chatbot-questions" id="chatbotQuestions">
+                <p class="questions-label">Questions fréquentes :</p>
+                <div class="questions-grid">
+                    <button class="quick-question" data-key="horaires">
+                        <i class="fa-regular fa-clock"></i> Horaires d'ouverture
+                    </button>
+                    <button class="quick-question" data-key="rdv">
+                        <i class="fa-solid fa-calendar-plus"></i> Prendre un rendez-vous
+                    </button>
+                    <button class="quick-question" data-key="contact">
+                        <i class="fa-solid fa-phone"></i> Nous contacter
+                    </button>
+                    <button class="quick-question" data-key="tarifs">
+                        <i class="fa-solid fa-tag"></i> Tarifs & abonnements
+                    </button>
+                    <button class="quick-question" data-key="essai">
+                        <i class="fa-solid fa-rocket"></i> Essai gratuit
+                    </button>
+                    <button class="quick-question" data-key="securite">
+                        <i class="fa-solid fa-shield-halved"></i> Sécurité des données
+                    </button>
+                </div>
+            </div>
+
+            <!-- Input area -->
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbotInput" class="chatbot-input" placeholder="Écrire un message..."
+                    maxlength="200" autocomplete="off" />
+                <button class="chatbot-send-btn" id="chatbotSendBtn" aria-label="Envoyer">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <!-- END CHATBOT -->
+
+    <script src="../JS/auth.js"></script>
+    <script src="../JS/Script.js"></script>
+    <script>
+        // Check if user is already logged in to update the navbar
+        window.addEventListener('DOMContentLoaded', () => {
+            const session = getSession();
+            if (session) {
+                const authBtn = document.getElementById('mainAuthBtn');
+                if (authBtn) {
+                    authBtn.innerHTML = `<i class="fa-solid fa-gauge"></i> Dashboard`;
+                    authBtn.href = ROLE_DASHBOARDS[session.role];
+                    // Add a logout link if needed, or just let them go to dashboard
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
